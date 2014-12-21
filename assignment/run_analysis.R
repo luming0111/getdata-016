@@ -39,4 +39,4 @@ data <- cbind(dataset_subject, dataset_y, dataset_x)
 tidyData <- aggregate(data[4:ncol(data)],
                       list(ActivityName=data$activity, SubjectId=data$subject),
                       FUN=mean)
-write.table(tidyData, file="tidy0119.csv")
+write.table(tidyData, file="tidy.txt")
