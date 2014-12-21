@@ -1,3 +1,5 @@
+library(plyr)
+
 container = "UCI HAR Dataset"
 
 # Read subject dataset
@@ -7,15 +9,20 @@ subject <- c(
 dataset_subject <- cbind(subject = subject)
 
 # Read activity dataset
-activityLabels <- read.csv(sprintf("%s/activity_labels.txt", container) , header = FALSE, sep=" ")
-names(activityLabels) <- c("activityKey", "activity")
+activity <- read.csv(sprintf("%s/activity_labels.txt", container) , header = FALSE, sep=" ")
+names(activity) <- c("activityId", "activity")
 
-# Read Y dataset
-vector_y <- c(
-  scan(sprintf("%s/test/y_test.txt", container)),
-  scan(sprintf("%s/train/y_train.txt", container))
+# Read Y dataset and join with activity
+dataset_y <- rbind(
+  read.csv(sprintf("%s/test/y_test.txt", container),
+           sep = "",
+           header = FALSE),
+  read.csv(sprintf("%s/train/y_train.txt", container),
+           sep = "",
+           header = FALSE)
   )
-dataset_y <- cbind(activityKey = vector_y)
+names(dataset_y) <- c("activityId")
+dataset_y <- join(dataset_y, activity, by="activityId")
 
 # Read X dataset and filtered by features
 dataset_x <- rbind(
@@ -34,6 +41,7 @@ measurement_filter <- grepl('mean()', features$V2) | grepl('std()', features$V2)
 dataset_x <- dataset_x[,which(measurement_filter)]
 
 data <- cbind(dataset_subject, dataset_y, dataset_x)
+write.table(data, file="data.txt")
 
 ## Tidy data
 tidyData <- aggregate(data[4:ncol(data)],
