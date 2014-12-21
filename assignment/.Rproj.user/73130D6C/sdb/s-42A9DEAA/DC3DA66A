@@ -1,0 +1,22 @@
+{
+    "contents" : "",
+    "created" : 1419182125796.000,
+    "dirty" : false,
+    "encoding" : "",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "DC3DA66A",
+    "lastKnownWriteTime" : 31244048835477601,
+    "path" : null,
+    "project_path" : null,
+    "properties" : {
+        "caption" : "tidyData",
+        "contentUrl" : "content?title=tidyData&file=82b1f615be9947bd852caadf701581e9.htm",
+        "displayedObservations" : 180,
+        "displayedVariables" : 100,
+        "totalObservations" : 180,
+        "variables" : 562
+    },
+    "source_on_save" : false,
+    "type" : "r_dataframe"
+}
